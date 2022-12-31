@@ -1,3 +1,7 @@
+A demo of the app is available on youtube:
+https://www.youtube.com/watch?v=iopa70XnrDY
+
+
 The app should be launched with a live server (such as is available in VScode for example).
 
 The grid represents the Wordle puzzle. By clicking a single box the colour changes so that we can exclude or include
