@@ -1,0 +1,69 @@
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+  <!-- CSS only -->
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0-beta1/dist/css/bootstrap.min.css" rel="stylesheet"
+    integrity="sha384-0evHe/X+R7YkIZDRvuzKMRqM+OrBnVFBL6DOitfPri4tjfHxaWutUpFmBp4vmVor" crossorigin="anonymous" />
+
+  <title>Wordle Cracker</title>
+
+  <link rel="stylesheet" href="style.css" />
+
+</head>
+
+<body>
+  <div class="bg-white m-4 p-2">
+
+    <script src="https://code.jquery.com/jquery-1.12.4.min.js"
+      integrity="sha256-ZosEbRLbNQzLpnKIkEdrPv7lOy9C27hHQ+Xp8a4MxAQ=" crossorigin="anonymous"></script>
+
+    <!-- JavaScript Bundle with Popper -->
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0-beta1/dist/js/bootstrap.bundle.min.js"
+      integrity="sha384-pprn3073KE6tl6bjs2QrFaJGz5/SUsLqktiwsUTF55Jfv3qYSDhgCecCxMW52nD2"
+      crossorigin="anonymous"></script>
+
+    <h1 class="text-center">Wordle Cracker</h1>
+
+
+
+    <div id="insert" class="mx-auto justify-content-center"></div>
+
+    <!-- here below is the hidden input field for storing the focus if the user goes beyond the 30th square-->
+
+    <input style="width: 0; height: 0; overflow: hidden; opacity: 0" id="31" />
+
+    <div class="text-center">
+
+      <button type="button" class="btn btn-primary btn-lg mt-3 mx-auto">
+        Evaluate
+      </button>
+    </div>
+
+  </div>
+
+
+  <div id="suggestions" class="mx-auto form-control"></div>
+
+
+
+  <textarea id="textArea" style="opacity: 0;"></textarea>
+
+
+  <textarea id="textAreaInclude" style="opacity: 0;"></textarea>
+
+
+
+  <textarea id="textAreaIncludeGreen" style="opacity: 0;"></textarea>
+
+  </div>
+
+  <script type="module" src="wordleCracker.js"></script>
+
+</body>
+
+</html>

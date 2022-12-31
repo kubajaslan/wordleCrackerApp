@@ -1,0 +1,286 @@
+body {
+  font-size: 1.4rem;
+}
+h2 {
+  text-align: center;
+}
+#grid {
+  width: 250px;
+  height: 280px;
+  margin-right: auto;
+  margin-left: 0px;
+  border: 3px solid #000000;
+}
+.cell input {
+  display: inline-block;
+  margin-left: auto;
+  margin-right: auto;
+
+  border: 1px solid black;
+  width: 42px;
+  height: 42px;
+
+  text-align: center;
+  font-size: 30px;
+}
+.description {
+  font-family: "Times New Roman", Times, serif;
+}
+
+.optimal {
+  font-family: "Courier New", Courier, monospace;
+}
+
+#suggestions {
+  overflow-y: auto;
+  height: 100px;
+  display: block;
+  /* border: 1px solid; */
+  font-size: 1.5rem;
+  /* float: center; */
+  margin-top: 20px;
+  margin-bottom: 30px;
+
+  margin-left: auto;
+  margin-right: auto;
+
+  width: 80%;
+  height: 20%;
+}
+
+/* "use strict";
+
+const insertGrid = function (row) {
+  const htmlGroup = `<div id="middle"  class="input-group input-group-lg"></div>`;
+
+  document.getElementById("insert").insertAdjacentHTML("afterbegin", htmlGroup);
+
+  for (let i = 1; i < 6; i++) {
+    const htmlCell = `<input
+    type="text"
+    style="text-align: center"
+    class="form-control border rounded border-dark"
+    id="${row}${i}"
+    maxlength="1"
+  />`;
+    document.getElementById("middle").insertAdjacentHTML("beforeend", htmlCell);
+  }
+};
+const rowLetters = ["a", "b", "c", "d", "e", "f"];
+
+for (const letter of rowLetters.reverse()) {
+  insertGrid(letter);
+}
+
+//Change color function
+const changeColor = function (key) {
+  const element = document.getElementById(`${key}`);
+  element.addEventListener("keydown", function (e) {
+    if (e.key === "g") {
+      element.style.backgroundColor = "green";
+    }
+    if (e.key === "y") {
+      element.style.backgroundColor = "yellow";
+    }
+    if (e.key === "w") {
+      element.style.backgroundColor = "white";
+    }
+  });
+};
+
+for (const letter of rowLetters) {
+  for (let i = 1; i < 6; i++) {
+    let key = `${letter}${i}`;
+    changeColor(key);
+  }
+}
+
+document.getElementById("suggestions").textContent = finalSorted.join(" ");
+
+//!1. button click
+
+const btn = document.querySelector(".btn-primary");
+
+//todo add a checkbox that allows the user to delete the s ending words and the ing ending words
+
+//this function should return 3 elements - that should be set as input in the boxes
+const readGrid = function() {
+  xxx
+} 
+
+const run = function () {
+  let options = [1, 2, 3, 4, 5];
+
+  let includeLetters = document.getElementById("textAreaInclude").value;
+
+  //that is why letters to include should be typed with spaces inbetween
+  let includeLettersArray = includeLetters.split(" ");
+
+  let excludeLetters = document.getElementById("textArea").value;
+
+  //that is why letters to exclude should be typed with spaces inbetween
+  let excludeLettersArray = excludeLetters.split(" ");
+
+  //! Excluding dark letters
+  // test if a word includes the letter that should be excluded
+  function testLetter(word) {
+    for (let i = 0; i < excludeLettersArray.length; i++) {
+      if (word.includes(excludeLettersArray[i])) {
+        return true;
+      }
+    }
+  }
+
+  const itemsDelete = finalSorted.filter(testLetter);
+
+  // if the array of items to delete contains a word from finalSorted return FALSE [test is failed];
+
+  function subtract(word) {
+    if (itemsDelete.includes(word)) {
+      return false;
+    } else {
+      return true;
+    }
+  }
+
+  //create an array that will receive the values that pass the 3 tests
+  let wordsLeft = [];
+
+  if (excludeLettersArray[0] === "") {
+    wordsLeft = finalSorted;
+  } else {
+    wordsLeft = finalSorted.filter(subtract);
+  }
+
+  //! Including yellow letters
+
+  //create arrays for where the letters should NOT be found (yellow wordle letters)
+  let yellowIndexArray = [];
+  let yellowLettersArray = [];
+
+  for (let i = 0; i < includeLettersArray.length; i++) {
+    if (options.includes(Number(includeLettersArray[i]))) {
+      yellowIndexArray.push(Number(includeLettersArray[i]));
+    } else if (isNaN(parseInt(includeLettersArray[i])) === true) {
+      yellowLettersArray.push(includeLettersArray[i]);
+    }
+  }
+
+  function include(word) {
+    let temp = 0;
+
+    for (let i = 0; i < yellowIndexArray.length; i++) {
+      if (
+        word.includes(yellowLettersArray[i]) &&
+        word.charAt(yellowIndexArray[i] - 1) !== yellowLettersArray[i]
+      ) {
+        temp += 1;
+        //temp was introduced so that all the necessary letters will be checked for
+        if (temp === yellowIndexArray.length) {
+          return true;
+        }
+      }
+    }
+  }
+
+  const itemsInclude = finalSorted.filter(include);
+
+  function leftInclude(word) {
+    if (itemsInclude.includes(word)) {
+      return true;
+    }
+  }
+
+  let wordsLeftIncluding = [];
+
+  //refactor below,just delete
+  if (includeLettersArray[0] === "") {
+    wordsLeftIncluding = wordsLeft;
+  } else {
+    wordsLeft = wordsLeft.filter(leftInclude);
+  }
+
+  //! 3 Include green letters at specific indices
+
+  let greenLetters = document.getElementById("textAreaIncludeGreen").value;
+
+  const greenLettersArray = greenLetters.split(" ");
+
+  //create and array with the indices of green letters (from 1 to 5)
+  let indexArray = [];
+  let lettersArray = [];
+
+  //creating the index array and the letters array for storing which letters should be found at which positions
+  for (let i = 0; i < greenLettersArray.length; i++) {
+    if (options.includes(Number(greenLettersArray[i]))) {
+      indexArray.push(Number(greenLettersArray[i]));
+    } else if (isNaN(parseInt(greenLettersArray[i])) === true) {
+      lettersArray.push(greenLettersArray[i]);
+    }
+  }
+
+  let wordsFilteredGreen = [];
+
+  function specificIndicesLetters(word) {
+    let temp = 0;
+    for (let i = 0; i < indexArray.length; i++) {
+      if (word.charAt(indexArray[i] - 1) === lettersArray[i]) {
+        temp += 1;
+        if (temp === indexArray.length) {
+          return true;
+        }
+      }
+    }
+  }
+
+  if (greenLettersArray[0] === "") {
+    wordsFilteredGreen = wordsLeft;
+  } else {
+    wordsLeft = wordsLeft.filter(specificIndicesLetters);
+  }
+
+  //make sure that words with double letters are at the end of the suggestions and the words ending in s
+
+  const arrayNotRepeating = [];
+  const arrayRepeating = [];
+  for (const [word, i] of wordsLeft) {
+    for (const [letter, j] of word) {
+      if (word.indexOf(word.charAt(j)) === word.lastIndexOf(word.charAt(j))) {
+        arrayNotRepeating.push(word);
+      } else {
+        arrayRepeating.push(word);
+      }
+    }
+  }
+
+  let wordsLeftPrint = wordsLeft.join(" ");
+
+  //error message
+
+  if (includeLettersArray.some((item) => excludeLettersArray.includes(item))) {
+    //making sure that when there is no input in both fields then the error message will not be prduced
+    if (includeLettersArray[0] !== "") {
+      wordsLeftPrint =
+        'Error: trying to exclude and include the same letter; check your input - you probably wrote the same letter in the "include" and "exclude" box.';
+    }
+  }
+
+  document.getElementById("suggestions").textContent = wordsLeftPrint;
+};
+
+btn.addEventListener("click", function () {
+  //the five possible positions of letters in a word
+
+  run();
+});
+
+//! same thing for clicking enter in the whole doc
+
+document.addEventListener("keydown", function (e) {
+  if (e.key === "Enter") {
+    run();
+  }
+});
+
+//work on the grid
+ */
